@@ -47,5 +47,9 @@ class Renderer(metaclass=Singleton):
 			draw.text(self.body_pos, name_text, fill=0)  # pyright: ignore[reportPossiblyUnboundVariable]
 		draw.text(content_pos, content_text, fill=0)
 
+		# dot to prevent printer cropping
+		draw.point((0, height - 1), 20)
+
 		printer.print_page_image(im)
-		for _ in range(config.filler_page_count): printer.print_page_empty()
+		for _ in range(config.filler_page_count):
+			printer.print_page_empty()
