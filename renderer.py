@@ -1,3 +1,4 @@
+import asyncio
 from io import BytesIO
 from typing import cast
 from PIL import Image, ImageFont, ImageText, ImageDraw

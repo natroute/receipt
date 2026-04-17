@@ -61,7 +61,9 @@ class Printer:
 
 	def print_page_empty(self):
 		'''Print an empty page.'''
+		logger.info('StartPage')
 		self._dc.StartPage()
+		logger.info('EndPage')
 		self._dc.EndPage()
 
 	def print_page_image(self, im: Image.Image):
