@@ -25,11 +25,12 @@ async def on_message(message: discord.Message):
 	printer.print_page(await renderer.render_message(message))
 
 if __name__ == '__main__':
+	os.chdir(os.path.dirname(__file__))
+
 	logging.basicConfig(format='[%(asctime)s] %(name)s: [%(levelname)s] %(message)s', level='INFO')
 	logger = logging.getLogger(__name__)
 
 	load_dotenv()
-	os.chdir(os.path.dirname(__file__))
 
 	printer = Printer()
 	renderer = Renderer(printer.printable_size[0])
