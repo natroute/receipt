@@ -40,5 +40,4 @@ if __name__ == '__main__':
 	printer = Printer()
 	renderer = Renderer(printer.printable_size[0])
 
-	with printer.print_doc():
-		bot.run(os.getenv('TOKEN') or '')
+	bot.run(os.getenv('TOKEN') or '')

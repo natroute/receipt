@@ -51,6 +51,5 @@ class Renderer(metaclass=Singleton):
 		# dot to prevent printer cropping
 		draw.point((0, height - 1), 20)
 
-		printer.print_page_image(im)
-		for _ in range(config.filler_page_count):
-			printer.print_page_empty()
+		with printer.print_doc():
+			printer.print_page_image(im)
