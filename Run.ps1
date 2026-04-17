@@ -4,7 +4,7 @@ if (!(Test-Path -Path '.venv'))
 	Write-Output 'Creating venv at ./.venv'
 	python -m venv .venv
 	Write-Output 'Installing dependencies'
-	pip install -r requirements.txt
+	.venv\Scripts\python.exe -m pip install -r requirements.txt
 }
 
 Write-Output 'Running script'
