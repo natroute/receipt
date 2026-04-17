@@ -20,9 +20,14 @@ bot = discord.Bot(intents=intents)
 async def on_ready():
 	logger.info(f'Ready as {bot.user}')
 
+last_message: discord.Message | None = None
+
 @bot.event
 async def on_message(message: discord.Message):
-	printer.print_page(await renderer.render_message(message))
+	global last_message
+	chain = last_message is not None and message.author == last_message.author
+	await renderer.render_message(printer, message, chain)
+	last_message = message
 
 if __name__ == '__main__':
 	os.chdir(os.path.dirname(__file__))

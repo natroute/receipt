@@ -22,6 +22,7 @@ class Printer:
 
 	_dc: Any
 	_devmode: Any
+	_printing_doc: bool
 
 	def __init__(self, printer_name: str | None = None):
 		printer_name = printer_name or self.get_default()
@@ -36,22 +37,38 @@ class Printer:
 		self._devmode = properties['pDevMode']
 
 		self.printable_size = self._dc.GetDeviceCaps(win32con.HORZRES), self._dc.GetDeviceCaps(win32con.VERTRES)
+		
+		self._printing_doc = False
 
 	@staticmethod
 	def get_default():
+		'''Returns the name of the default printer.'''
 		return win32print.GetDefaultPrinterW()
 
 	@contextmanager
 	def print_doc(self):
+		'''Context manager wrapping StartDoc and EndDoc.'''
+
 		logger.info('StartDoc')
 		self._dc.StartDoc('', '')
+		self._printing_doc = True
 		try:
 			yield
 		finally:
 			logger.info('EndDoc')
 			self._dc.EndDoc()
+			self._printing_doc = False
 
-	def print_page(self, im: Image.Image):
+	def print_page_empty(self):
+		'''Print an empty page.'''
+		self._dc.StartPage()
+		self._dc.EndPage()
+
+	def print_page_image(self, im: Image.Image):
+		'''Print an image as a page. Must be called within :meth:`print_doc`.'''
+
+		assert self._printing_doc
+
 		logger.info('StartPage')
 		self._dc.StartPage()
 		try:
