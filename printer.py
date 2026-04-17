@@ -17,8 +17,8 @@ class PrinterDeniedException(BaseException):
 class Printer:
 	'''Abstracts a Windows printer.'''
 
-	'''The printable area of a page.'''
 	printable_size: tuple[int, int]
+	'''The printable area of a page.'''
 
 	_dc: Any
 	_devmode: Any
