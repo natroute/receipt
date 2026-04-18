@@ -1,22 +1,25 @@
 font_size = 28
 '''The font size.'''
 
-padding_x = 12
+padding_x = 6
 '''Horizontal padding on either side of the page.'''
 
-gap_y = 12
+gap_y = 20
 '''Vertical gap between messages.'''
+
+avatar_y = 6
+'''Vertical offset of the avatar in a message.'''
 
 avatar_size = 64
 '''Avatar width/height in a message.'''
 
-avatar_body_gap = 12
-'''Gap between avatar and message body.'''
+body_items_gap = 12
+'''Gap between items (i.e. username, content, attachments) in a message.'''
 
-name_content_gap = 8
-'''Gap between author name and message content.'''
+name_content_gap = 16
+'''Gap between author username and message content.'''
 
-filler_page_count = 3
+filler_page_count = 0
 '''
 Number of filler empty pages to print after each message.
 The Epson printer is stupid and doesn't print pages in time in a way that I don't really understand.

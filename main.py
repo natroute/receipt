@@ -1,6 +1,6 @@
 import asyncio
 from io import BytesIO
-from printer import Printer
+from printer import open_printer
 import discord
 from PIL import Image, ImageDraw, ImageText, ImageFont
 from PIL.BdfFontFile import BdfFontFile
@@ -18,7 +18,7 @@ bot = discord.Bot(intents=intents)
 
 @bot.event
 async def on_ready():
-	logger.info(f'Ready as {bot.user}')
+	logger.info(f'ready as {bot.user}')
 
 last_message: discord.Message | None = None
 
@@ -26,7 +26,7 @@ last_message: discord.Message | None = None
 async def on_message(message: discord.Message):
 	global last_message
 	chain = last_message is not None and message.author == last_message.author
-	await renderer.render_message(printer, message, chain)
+	await renderer.render_message(message, chain)
 	last_message = message
 
 if __name__ == '__main__':
@@ -37,7 +37,7 @@ if __name__ == '__main__':
 
 	load_dotenv()
 
-	printer = Printer()
-	renderer = Renderer(printer.printable_size[0])
-
-	bot.run(os.getenv('TOKEN') or '')
+	with open_printer() as printer:
+		with printer.print_doc():
+			renderer = Renderer(printer)
+			bot.run(os.getenv('TOKEN') or '')
