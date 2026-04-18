@@ -43,7 +43,7 @@ class Renderer(metaclass=Singleton):
 		else:
 			return self.body_width, int(height * (self.body_width / width))
 
-	async def render_message(self, message: discord.Message, chain: bool):
+	async def render_message(self, message: discord.Message, *, chain: bool):
 		if not chain:
 			avatar_data = await message.author.display_avatar.with_format('png').with_size(64).read()
 			avatar_im = Image.open(BytesIO(avatar_data)).convert('1')  # pyright: ignore[reportArgumentType]
@@ -106,5 +106,4 @@ class Renderer(metaclass=Singleton):
 		# dot to prevent printer cropping
 		draw.point((size[0] - 1, size[1] - 1), 0)
 
-		with self.printer.print_doc():
-			self.printer.print_page_image(im)
+		self.printer.print_page_image(im)

@@ -26,14 +26,14 @@ def open_printer(*args, **kwargs) -> BasePrinter:
 		else Printer(*args, **kwargs)
 	)
 
-class BasePrinter(ContextManager, ABC):
+class BasePrinter(ContextManager['BasePrinter'], ABC):
 	printable_size: tuple[int, int]
 
 	@abstractmethod
 	def __init__(self) -> None: ...
 
 	@abstractmethod
-	def print_doc(self) -> ContextManager: ...
+	def print_doc(self) -> ContextManager[None]: ...
 
 	@abstractmethod
 	def print_page_empty(self) -> None: ...
@@ -48,16 +48,20 @@ class TestPrinter(BasePrinter):
 		pass
 
 	def __enter__(self):
-		logger.info('open TestPrinter')
+		logger.info('TestPrinter: open')
 		return self
 
 	def __exit__(self, exc_type: type[BaseException] | None, exc_value: BaseException | None, traceback: TracebackType | None):
-		logger.info('close TestPrinter')
+		logger.info('TestPrinter: close')
 		return False
 
 	@contextmanager
 	def print_doc(self):
-		yield
+		logger.info('TestPrinter: start doc')
+		try:
+			yield
+		finally:
+			logger.info('TestPrinter: end doc')
 
 	def print_page_image(self, im: Image.Image):
 		im.show()
