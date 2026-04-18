@@ -38,6 +38,5 @@ if __name__ == '__main__':
 	load_dotenv()
 
 	with open_printer() as printer:
-		with printer.print_doc():
-			renderer = Renderer(printer)
-			bot.run(os.getenv('TOKEN') or '')
+		renderer = Renderer(printer)
+		bot.run(os.getenv('TOKEN') or '')

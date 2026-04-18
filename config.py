@@ -18,9 +18,3 @@ body_items_gap = 12
 
 name_content_gap = 16
 '''Gap between author username and message content.'''
-
-filler_page_count = 0
-'''
-Number of filler empty pages to print after each message.
-The Epson printer is stupid and doesn't print pages in time in a way that I don't really understand.
-'''

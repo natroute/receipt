@@ -48,9 +48,12 @@ class TestPrinter(BasePrinter):
 		pass
 
 	def __enter__(self):
+		logger.info('open TestPrinter')
 		return self
 
-	def __exit__(self, exc_type: type[BaseException] | None, exc_value: BaseException | None, traceback: TracebackType | None): pass
+	def __exit__(self, exc_type: type[BaseException] | None, exc_value: BaseException | None, traceback: TracebackType | None):
+		logger.info('close TestPrinter')
+		return False
 
 	@contextmanager
 	def print_doc(self):
