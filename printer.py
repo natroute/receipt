@@ -42,6 +42,8 @@ class BasePrinter(ContextManager['BasePrinter'], ABC):
 	def print_page_image(self, im: Image.Image) -> None: ...
 
 class TestPrinter(BasePrinter):
+	'''A mock printer for testing purposes.'''
+
 	printable_size = 500, 500
 
 	def __init__(self):
@@ -64,10 +66,11 @@ class TestPrinter(BasePrinter):
 			logger.info('TestPrinter: end doc')
 
 	def print_page_image(self, im: Image.Image):
+		logger.info('TestPrinter: print page')
 		im.show()
 
 	def print_page_empty(self):
-		logger.info('empty page printed')
+		logger.info('TestPrinter: print empty page')
 
 class Printer(BasePrinter):
 	'''Abstracts a Windows printer.'''
@@ -126,7 +129,7 @@ class Printer(BasePrinter):
 			self._printing_doc = False
 
 	def print_page_empty(self):
-		'''Print an empty page. Must be called within :meth:`print_doc`.'''
+		'''Print an empty page. Must be called within :py:meth:`print_doc`.'''
 		assert self._printing_doc
 
 		logger.info('StartPage')
@@ -135,7 +138,7 @@ class Printer(BasePrinter):
 		self._dc.EndPage()
 
 	def print_page_image(self, im: Image.Image):
-		'''Print a page and draw an image. Must be called within :meth:`print_doc`.'''
+		'''Print a page and draw an image. Must be called within :py:meth:`print_doc`.'''
 
 		assert self._printing_doc
 

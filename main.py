@@ -25,6 +25,9 @@ async def on_ready():
 	while True:
 		with printer.print_doc():
 			message = await bot.wait_for('message')
+			if message.channel.id != config.channel_id:
+				continue
+
 			chain = last_message is not None and message.author == last_message.author
 			await renderer.render_message(message, chain=chain)
 			last_message = message
