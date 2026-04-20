@@ -268,7 +268,7 @@ def _position_glyphs(glyphs: list[_Glyph], *, width: int, line_height_scale: flo
 	def new_line():
 		nonlocal x, y, line_height
 		x = 0
-		y += line_height
+		y += line_height * line_height_scale
 		line_height = 0
 
 	for word_glyphs_offsets, word_width in words:
@@ -276,7 +276,7 @@ def _position_glyphs(glyphs: list[_Glyph], *, width: int, line_height_scale: flo
 			new_line()
 
 		for glyph, glyph_width in word_glyphs_offsets:
-			line_height = max(line_height, int(glyph.font.size * line_height_scale))
+			line_height = max(line_height, int(glyph.font.getbbox(glyph.char)[3]))
 
 			# new line if this is a newline (wow) or if the word so far is too big to fit in the line
 			if glyph.char == '\n' or width != 0 and x + glyph_width > width:
@@ -290,7 +290,7 @@ def _position_glyphs(glyphs: list[_Glyph], *, width: int, line_height_scale: flo
 
 	return MdText(_glyphs_xys=glyphs_xys, size=(width, y + line_height))
 
-def md_text(text: str, *, font_family: FontFamily, width: int = 0, line_height_scale: int = 1):
+def md_text(text: str, *, font_family: FontFamily, width: int = 0, line_height_scale: float = 1):
 	glyphs, links = _md_to_glyphs(text, font_family=font_family)
 	obj = _position_glyphs(glyphs, width=width, line_height_scale=line_height_scale)
 	obj.links = links

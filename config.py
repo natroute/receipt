@@ -1,4 +1,4 @@
-channel_id = 1492198771193282757
+channel_id = 1495097094661472409
 '''The ID of the channel to watch.'''
 
 font_size = 24
@@ -18,6 +18,9 @@ avatar_y = 0
 
 avatar_size = 64
 '''Avatar width/height in a message.'''
+
+reference_avatar_size = 32
+'''Avatar width/height in a referenced message (such as a reply).'''
 
 body_items_gap = 16
 '''Gap between items (i.e. username, content, attachments) in a message.'''
