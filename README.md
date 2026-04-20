@@ -34,6 +34,7 @@ The voices
 - [x] receiving and printing messages
 - [x] avatars
 - [x] markdown
+- [x] emoji
 - [x] image attachments
 - [ ] other attachments (somehow)
 - [ ] replies
